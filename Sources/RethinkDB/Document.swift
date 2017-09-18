@@ -43,19 +43,21 @@ public struct Document: Collection, ExpressibleByDictionaryLiteral, ReqlSerializ
     }
 
     public struct Iterator: IteratorProtocol {
+        
+        mutating public func next() -> Document.Element? {
+            return self.dictIterator.next()
+        }
+        
         public typealias Element = Document.Element
-
+        
         let document: Document
         var dictIterator: DictionaryIterator<String, Value>
-
+        
         init(_ document: Document) {
             self.document = document
             self.dictIterator = document.storage.makeIterator()
         }
-
-        public mutating func next() -> (key: String, value: Value)? {
-            return self.dictIterator.next()
-        }
+        
     }
 
     internal var storage: [String: Value]
