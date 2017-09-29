@@ -314,12 +314,15 @@ public enum UpdateArg: Arg {
     /** If set to true, executes the update and distributes the result to replicas in a non-atomic fashion. This flag is 
     required to perform non-deterministic updates, such as those that require reading data from another table. */
     case nonAtomic(Bool)
+    
+    case upsert(bool)
 
     public var serialization: (String, ReqlSerializable) {
         switch self {
         case .durability(let d): return ("durability", d.rawValue)
         case .returnChanges(let r): return ("return_changes", r)
         case .nonAtomic(let b): return ("non_atomic", b)
+        case .upsert(let b): return ("upsert", b)
         }
     }
 }
