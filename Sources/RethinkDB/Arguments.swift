@@ -292,12 +292,15 @@ public enum InsertArg: Arg {
 
     /** Determine handling of inserting documents with the same primary key as existing entries.  */
     case conflict(ConflictResolution)
+    
+    case upsert(Bool)
 
     public var serialization: (String, ReqlSerializable) {
         switch self {
         case .durability(let d): return ("durability", d.rawValue)
         case .returnChanges(let r): return ("return_changes", r)
         case .conflict(let r): return ("conflict", r.rawValue)
+        case .upsert(let b): return ("upsert", b)
         }
     }
 }
