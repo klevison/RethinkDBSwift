@@ -315,7 +315,7 @@ public enum UpdateArg: Arg {
     required to perform non-deterministic updates, such as those that require reading data from another table. */
     case nonAtomic(Bool)
     
-    case upsert(bool)
+    case upsert(Bool)
 
     public var serialization: (String, ReqlSerializable) {
         switch self {
